@@ -1,4 +1,6 @@
 var createError = require('http-errors');
+require('./config/loadEnv');
+var cors = require('cors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -9,12 +11,27 @@ var usersRouter = require('./routes/users');
 var rsvpRouter = require('./routes/rsvp');
 
 var app = express();
+var allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(function(origin) { return origin.trim(); })
+  .filter(Boolean);
+var corsOptions = {
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Origin not allowed by CORS'));
+  },
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
