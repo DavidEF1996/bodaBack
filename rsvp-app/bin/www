@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+require('../config/loadEnv');
 var app = require('../app');
 var debug = require('debug')('rsvp-app:server');
 var http = require('http');

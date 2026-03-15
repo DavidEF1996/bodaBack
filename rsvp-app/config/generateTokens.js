@@ -71,22 +71,21 @@ function saveCsv(tokens, baseUrl) {
 
 (async () => {
   try {
-    // Cambia esto a tu URL real cuando la publiques
-    const RSVP_URL = "http://localhost:3000/rsvp";
+    const RSVP_URL = process.env.RSVP_URL || "http://localhost:3000/rsvp";
 
     const tokens = await createTokens({ amount: 200, length: 8 });
-    console.log("✅ Tokens creados.");
+    console.log("Tokens creados.");
 
     const csvFile = saveCsv(tokens, RSVP_URL);
-    console.log("✅ CSV generado:", csvFile);
+    console.log("CSV generado:", csvFile);
 
     console.log("\nEjemplo para WhatsApp:");
     console.log(`Link: ${RSVP_URL}`);
-    console.log(`Código: ${tokens[0]}`);
+    console.log(`Codigo: ${tokens[0]}`);
 
     process.exit(0);
   } catch (e) {
-    console.error("❌ Error:", e);
+    console.error("Error:", e);
     process.exit(1);
   }
 })();
