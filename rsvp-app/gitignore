@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Runtime logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build/output folders
+dist/
+build/
+coverage/
+exports/
+
+# Secrets and credentials
+config/boda-key.json
+config/*-key.json
+*.pem
+*.key
+*.p12
+*.crt
